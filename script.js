@@ -24,7 +24,7 @@ $(function()
 function GetCreateSECDEDString(bits)
 {
     // only accept binary string
-    if (bits.match(/^[10]+$/g) == null)
+    if (!/^[10]+$/g.test(bits))
         return "<div class='heading'>Input must be a binary string</div>";
     
     var result = "<div class='heading'>Create SECDED: " + GetFormattedBits(bits) + "</div>";
@@ -75,13 +75,13 @@ function GetParityCalculationString(bits, parityCount)
 function GetCheckSECDEDString(bits)
 {
     // only accept binary string
-    if (bits.match(/^([0-9A-Fa-f]+|[10]+)$/g) == null)
+    if (!/^([0-9A-Fa-f]+|[10]+)$/g.test(bits))
         return "<div class='heading'>Input must be a hex or binary string</div>";
     
     var result = "<div class='heading'>Check SECDED: " + GetFormattedBits(bits) + "</div>";
     
     // convert hex to binary and display
-    if (bits.match(/^[0-9A-Fa-f]+$/g) != null && bits.match(/^[2-9A-Fa-f]+$/g) != null)
+    if (/^[0-9A-Fa-f]+$/g.test(bits) && !/^[10]+$/g.test(bits))
     {
         bits = parseInt(bits, 16).toString(2);
         result += GetFormattedBits(bits) + "<br>";
